@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Event)">
+        <MappingFragment StoreEntitySet="EventSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventTypeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.EventType)">
+        <MappingFragment StoreEntitySet="EventTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventStatusSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.EventStatus)">
+        <MappingFragment StoreEntitySet="EventStatusSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContributionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Contribution)">
+        <MappingFragment StoreEntitySet="ContributionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContributionTypeSet1">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ContributionType)">
+        <MappingFragment StoreEntitySet="ContributionTypeSet1">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="EventEventType" TypeName="Model1.EventEventType" StoreEntitySet="EventSet">
+      <EndProperty Name="EventType">
+        <ScalarProperty Name="Id" ColumnName="EventType_Id" />
+      </EndProperty>
+      <EndProperty Name="Event">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EventEventStatus" TypeName="Model1.EventEventStatus" StoreEntitySet="EventSet">
+      <EndProperty Name="EventStatus">
+        <ScalarProperty Name="Id" ColumnName="EventStatus_Id" />
+      </EndProperty>
+      <EndProperty Name="Event">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ContributionTypeContribution" TypeName="Model1.ContributionTypeContribution" StoreEntitySet="ContributionSet">
+      <EndProperty Name="ContributionType">
+        <ScalarProperty Name="Id" ColumnName="ContributionType_Id" />
+      </EndProperty>
+      <EndProperty Name="Contribution">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonContribution" TypeName="Model1.PersonContribution" StoreEntitySet="ContributionSet">
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Person_Id" />
+      </EndProperty>
+      <EndProperty Name="Contribution">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EventContribution" TypeName="Model1.EventContribution" StoreEntitySet="ContributionSet">
+      <EndProperty Name="Event">
+        <ScalarProperty Name="Id" ColumnName="Event_Id" />
+      </EndProperty>
+      <EndProperty Name="Contribution">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
