@@ -4,18 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="67ee3e530477478da95b9ae16389c1dc" Name="Diagram1" ZoomLevel="97" >
-        <EntityTypeShape EntityType="Model1.Person" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="Model1.Event" Width="1.5" PointX="0.75" PointY="3.5" />
-        <EntityTypeShape EntityType="Model1.EventType" Width="1.5" PointX="6" PointY="5.625" />
-        <AssociationConnector Association="Model1.EventEventType" />
-        <EntityTypeShape EntityType="Model1.EventStatus" Width="1.5" PointX="4.75" PointY="7.75" />
-        <AssociationConnector Association="Model1.EventEventStatus" />
-        <EntityTypeShape EntityType="Model1.Contribution" Width="1.5" PointX="3" PointY="2.875" />
-        <EntityTypeShape EntityType="Model1.ContributionType" Width="1.5" PointX="0.75" PointY="0.75" />
-        <AssociationConnector Association="Model1.ContributionTypeContribution" />
-        <AssociationConnector Association="Model1.PersonContribution" />
-        <AssociationConnector Association="Model1.EventContribution" />
+      <Diagram DiagramId="6ccf0c792bee4ae5aab442a34b2fdef7" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.Person" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.Event" Width="1.5" PointX="2.375" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.EventType" Width="1.5" PointX="4.25" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.EventStatus" Width="1.5" PointX="6.125" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.Contribution" Width="1.5" PointX="8.125" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.ContributionType" Width="1.5" PointX="6.125" PointY="2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

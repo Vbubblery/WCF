@@ -13,6 +13,7 @@ namespace Synchronic_World
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     [Serializable]
+    [DataContract]
     public partial class Contribution
     {
         [DataMember]
@@ -21,12 +22,11 @@ namespace Synchronic_World
         public string Name { get; set; }
         [DataMember]
         public double Quantity { get; set; }
-
         [DataMember]
-        public virtual ContributionType ContributionType { get; set; }
-        
-        public virtual Person Person { get; set; }
-        
-        public virtual Event Event { get; set; }
+        public int ContributionType_Id { get; set; }
+        [DataMember]
+        public int Person_Id { get; set; }
+        [DataMember]
+        public int Event_Id { get; set; }
     }
 }

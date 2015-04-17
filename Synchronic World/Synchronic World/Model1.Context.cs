@@ -30,6 +30,6 @@ namespace Synchronic_World
         public virtual DbSet<EventType> EventTypeSet { get; set; }
         public virtual DbSet<EventStatus> EventStatusSet { get; set; }
         public virtual DbSet<Contribution> ContributionSet { get; set; }
-        public virtual DbSet<ContributionType> ContributionTypeSet1 { get; set; }
+        public virtual DbSet<ContributionType> ContributionTypeSet { get; set; }
     }
 }

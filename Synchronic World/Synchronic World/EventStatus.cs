@@ -12,7 +12,6 @@ namespace Synchronic_World
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
     [Serializable]
     [DataContract]
     public partial class EventStatus
@@ -20,9 +19,6 @@ namespace Synchronic_World
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public int Status { get; set; }
-
-        [DataMember]
-        public virtual Event Event { get; set; }
+        public short Status { get; set; }
     }
 }

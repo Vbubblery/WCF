@@ -12,22 +12,13 @@ namespace Synchronic_World
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
     [Serializable]
     [DataContract]
     public partial class ContributionType
     {
-        public ContributionType()
-        {
-            this.Contribution = new HashSet<Contribution>();
-        }
-
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string NameOfType { get; set; }
-
-        [DataMember]
-        public virtual ICollection<Contribution> Contribution { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -12,15 +12,10 @@ namespace Synchronic_World
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
     [Serializable]
     [DataContract]
     public partial class Event
     {
-        public Event()
-        {
-            this.Contribution = new HashSet<Contribution>();
-        }
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -30,16 +25,12 @@ namespace Synchronic_World
         [DataMember]
         public string Description { get; set; }
         [DataMember]
-        public System.DateTime Date { get; set; }
+        public string Date { get; set; }
         [DataMember]
-        public System.DateTime Time { get; set; }
-
+        public string Time { get; set; }
         [DataMember]
-        public virtual EventType EventType { get; set; }
+        public int EventType_Id { get; set; }
         [DataMember]
-        public virtual EventStatus EventStatus { get; set; }
-
-        public virtual ICollection<Contribution> Contribution { get; set; }
-
+        public int EventStatus_Id { get; set; }
     }
 }

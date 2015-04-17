@@ -12,16 +12,10 @@ namespace Synchronic_World
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
     [Serializable]
     [DataContract]
     public partial class Person
     {
-        public Person()
-        {
-            this.Contribution = new HashSet<Contribution>();
-        }
-
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -30,7 +24,7 @@ namespace Synchronic_World
         public string NickName { get; set; }
         [DataMember]
         public string Password { get; set; }
-
-        public virtual ICollection<Contribution> Contribution { get; set; }
+        [DataMember]
+        public int Event_Id { get; set; }
     }
 }

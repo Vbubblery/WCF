@@ -11,27 +11,7 @@
     <EntitySet Name="EventTypeSet" EntityType="Model1.Store.EventTypeSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventStatusSet" EntityType="Model1.Store.EventStatusSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ContributionSet" EntityType="Model1.Store.ContributionSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ContributionTypeSet1" EntityType="Model1.Store.ContributionTypeSet1" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="EventEventType" Association="Model1.Store.EventEventType">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="EventType" EntitySet="EventTypeSet" />
-    </AssociationSet>
-    <AssociationSet Name="EventEventStatus" Association="Model1.Store.EventEventStatus">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="EventStatus" EntitySet="EventStatusSet" />
-    </AssociationSet>
-    <AssociationSet Name="ContributionTypeContribution" Association="Model1.Store.ContributionTypeContribution">
-      <End Role="ContributionType" EntitySet="ContributionTypeSet1" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
-    <AssociationSet Name="PersonContribution" Association="Model1.Store.PersonContribution">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
-    <AssociationSet Name="EventContribution" Association="Model1.Store.EventContribution">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
+    <EntitySet Name="ContributionTypeSet" EntityType="Model1.Store.ContributionTypeSet" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
   <EntityType Name="PersonSet">
     <Key>
@@ -41,6 +21,7 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="NickName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Event_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet">
     <Key>
@@ -50,8 +31,8 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
     <Property Name="EventType_Id" Type="int" Nullable="false" />
     <Property Name="EventStatus_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -60,14 +41,14 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameOfType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="EventStatusSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="ContributionSet">
     <Key>
@@ -80,73 +61,13 @@
     <Property Name="Person_Id" Type="int" Nullable="false" />
     <Property Name="Event_Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="ContributionTypeSet1">
+  <EntityType Name="ContributionTypeSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameOfType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <Association Name="EventEventType">
-    <End Role="Event" Type="Model1.Store.EventSet" Multiplicity="*" />
-    <End Role="EventType" Type="Model1.Store.EventTypeSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="EventType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Event">
-        <PropertyRef Name="EventType_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EventEventStatus">
-    <End Role="Event" Type="Model1.Store.EventSet" Multiplicity="*" />
-    <End Role="EventStatus" Type="Model1.Store.EventStatusSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="EventStatus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Event">
-        <PropertyRef Name="EventStatus_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ContributionTypeContribution">
-    <End Role="ContributionType" Type="Model1.Store.ContributionTypeSet1" Multiplicity="1" />
-    <End Role="Contribution" Type="Model1.Store.ContributionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ContributionType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Contribution">
-        <PropertyRef Name="ContributionType_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PersonContribution">
-    <End Role="Person" Type="Model1.Store.PersonSet" Multiplicity="1" />
-    <End Role="Contribution" Type="Model1.Store.ContributionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Contribution">
-        <PropertyRef Name="Person_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EventContribution">
-    <End Role="Event" Type="Model1.Store.EventSet" Multiplicity="1" />
-    <End Role="Contribution" Type="Model1.Store.ContributionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Event">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Contribution">
-        <PropertyRef Name="Event_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -155,29 +76,9 @@
           <EntitySet Name="PersonSet" EntityType="Model1.Person" />
           <EntitySet Name="EventSet" EntityType="Model1.Event" />
           <EntitySet Name="EventTypeSet" EntityType="Model1.EventType" />
-          <AssociationSet Name="EventEventType" Association="Model1.EventEventType">
-            <End Role="Event" EntitySet="EventSet" />
-            <End Role="EventType" EntitySet="EventTypeSet" />
-          </AssociationSet>
           <EntitySet Name="EventStatusSet" EntityType="Model1.EventStatus" />
-          <AssociationSet Name="EventEventStatus" Association="Model1.EventEventStatus">
-            <End Role="Event" EntitySet="EventSet" />
-            <End Role="EventStatus" EntitySet="EventStatusSet" />
-          </AssociationSet>
           <EntitySet Name="ContributionSet" EntityType="Model1.Contribution" />
-          <EntitySet Name="ContributionTypeSet1" EntityType="Model1.ContributionType" />
-          <AssociationSet Name="ContributionTypeContribution" Association="Model1.ContributionTypeContribution">
-            <End Role="ContributionType" EntitySet="ContributionTypeSet1" />
-            <End Role="Contribution" EntitySet="ContributionSet" />
-          </AssociationSet>
-          <AssociationSet Name="PersonContribution" Association="Model1.PersonContribution">
-            <End Role="Person" EntitySet="PersonSet" />
-            <End Role="Contribution" EntitySet="ContributionSet" />
-          </AssociationSet>
-          <AssociationSet Name="EventContribution" Association="Model1.EventContribution">
-            <End Role="Event" EntitySet="EventSet" />
-            <End Role="Contribution" EntitySet="ContributionSet" />
-          </AssociationSet>
+          <EntitySet Name="ContributionTypeSet" EntityType="Model1.ContributionType" />
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
@@ -187,7 +88,7 @@
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="NickName" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
-          <NavigationProperty Name="Contribution" Relationship="Model1.PersonContribution" FromRole="Person" ToRole="Contribution" />
+          <Property Name="Event_Id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -197,36 +98,25 @@
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Address" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" />
-          <Property Name="Time" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="EventType" Relationship="Model1.EventEventType" FromRole="Event" ToRole="EventType" />
-          <NavigationProperty Name="EventStatus" Relationship="Model1.EventEventStatus" FromRole="Event" ToRole="EventStatus" />
-          <NavigationProperty Name="Contribution" Relationship="Model1.EventContribution" FromRole="Event" ToRole="Contribution" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="Time" Type="String" Nullable="false" />
+          <Property Name="EventType_Id" Type="Int32" Nullable="false" />
+          <Property Name="EventStatus_Id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EventType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameOfType" Type="String" Nullable="false" />
-          <NavigationProperty Name="Event" Relationship="Model1.EventEventType" FromRole="EventType" ToRole="Event" />
+          <Property Name="Name" Type="String" Nullable="false" />
         </EntityType>
-        <Association Name="EventEventType">
-          <End Type="Model1.Event" Role="Event" Multiplicity="*" />
-          <End Type="Model1.EventType" Role="EventType" Multiplicity="1" />
-        </Association>
         <EntityType Name="EventStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Event" Relationship="Model1.EventEventStatus" FromRole="EventStatus" ToRole="Event" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
         </EntityType>
-        <Association Name="EventEventStatus">
-          <End Type="Model1.Event" Role="Event" Multiplicity="1" />
-          <End Type="Model1.EventStatus" Role="EventStatus" Multiplicity="1" />
-        </Association>
         <EntityType Name="Contribution">
           <Key>
             <PropertyRef Name="Id" />
@@ -234,30 +124,17 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Quantity" Type="Double" Nullable="false" />
-          <NavigationProperty Name="ContributionType" Relationship="Model1.ContributionTypeContribution" FromRole="Contribution" ToRole="ContributionType" />
-          <NavigationProperty Name="Person" Relationship="Model1.PersonContribution" FromRole="Contribution" ToRole="Person" />
-          <NavigationProperty Name="Event" Relationship="Model1.EventContribution" FromRole="Contribution" ToRole="Event" />
+          <Property Name="ContributionType_Id" Type="Int32" Nullable="false" />
+          <Property Name="Person_Id" Type="Int32" Nullable="false" />
+          <Property Name="Event_Id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ContributionType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Contribution" Relationship="Model1.ContributionTypeContribution" FromRole="ContributionType" ToRole="Contribution" />
-          <Property Name="NameOfType" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
         </EntityType>
-        <Association Name="ContributionTypeContribution">
-          <End Type="Model1.ContributionType" Role="ContributionType" Multiplicity="1" />
-          <End Type="Model1.Contribution" Role="Contribution" Multiplicity="*" />
-        </Association>
-        <Association Name="PersonContribution">
-          <End Type="Model1.Person" Role="Person" Multiplicity="1" />
-          <End Type="Model1.Contribution" Role="Contribution" Multiplicity="*" />
-        </Association>
-        <Association Name="EventContribution">
-          <End Type="Model1.Event" Role="Event" Multiplicity="1" />
-          <End Type="Model1.Contribution" Role="Contribution" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -271,6 +148,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="NickName" ColumnName="NickName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -283,6 +161,8 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="EventType_Id" ColumnName="EventType_Id" />
+          <ScalarProperty Name="EventStatus_Id" ColumnName="EventStatus_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -290,7 +170,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.EventType)">
         <MappingFragment StoreEntitySet="EventTypeSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -308,57 +188,20 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ContributionType_Id" ColumnName="ContributionType_Id" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+          <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ContributionTypeSet1">
+    <EntitySetMapping Name="ContributionTypeSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.ContributionType)">
-        <MappingFragment StoreEntitySet="ContributionTypeSet1">
+        <MappingFragment StoreEntitySet="ContributionTypeSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="EventEventType" TypeName="Model1.EventEventType" StoreEntitySet="EventSet">
-      <EndProperty Name="EventType">
-        <ScalarProperty Name="Id" ColumnName="EventType_Id" />
-      </EndProperty>
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="EventEventStatus" TypeName="Model1.EventEventStatus" StoreEntitySet="EventSet">
-      <EndProperty Name="EventStatus">
-        <ScalarProperty Name="Id" ColumnName="EventStatus_Id" />
-      </EndProperty>
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="ContributionTypeContribution" TypeName="Model1.ContributionTypeContribution" StoreEntitySet="ContributionSet">
-      <EndProperty Name="ContributionType">
-        <ScalarProperty Name="Id" ColumnName="ContributionType_Id" />
-      </EndProperty>
-      <EndProperty Name="Contribution">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="PersonContribution" TypeName="Model1.PersonContribution" StoreEntitySet="ContributionSet">
-      <EndProperty Name="Person">
-        <ScalarProperty Name="Id" ColumnName="Person_Id" />
-      </EndProperty>
-      <EndProperty Name="Contribution">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="EventContribution" TypeName="Model1.EventContribution" StoreEntitySet="ContributionSet">
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Event_Id" />
-      </EndProperty>
-      <EndProperty Name="Contribution">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -374,7 +217,6 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToSQL10.tt" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>

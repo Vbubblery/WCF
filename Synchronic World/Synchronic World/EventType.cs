@@ -12,22 +12,13 @@ namespace Synchronic_World
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    
     [Serializable]
     [DataContract]
     public partial class EventType
     {
-        public EventType()
-        {
-            this.Event = new HashSet<Event>();
-        }
-
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public string NameOfType { get; set; }
-
-        [DataMember]
-        public virtual ICollection<Event> Event { get; set; }
+        public string Name { get; set; }
     }
 }

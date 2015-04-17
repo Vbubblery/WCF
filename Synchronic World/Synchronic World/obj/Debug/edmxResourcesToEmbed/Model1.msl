@@ -8,6 +8,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="NickName" ColumnName="NickName" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -20,6 +21,8 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="EventType_Id" ColumnName="EventType_Id" />
+          <ScalarProperty Name="EventStatus_Id" ColumnName="EventStatus_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -27,7 +30,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(Model1.EventType)">
         <MappingFragment StoreEntitySet="EventTypeSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -45,56 +48,19 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ContributionType_Id" ColumnName="ContributionType_Id" />
+          <ScalarProperty Name="Person_Id" ColumnName="Person_Id" />
+          <ScalarProperty Name="Event_Id" ColumnName="Event_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ContributionTypeSet1">
+    <EntitySetMapping Name="ContributionTypeSet">
       <EntityTypeMapping TypeName="IsTypeOf(Model1.ContributionType)">
-        <MappingFragment StoreEntitySet="ContributionTypeSet1">
+        <MappingFragment StoreEntitySet="ContributionTypeSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="NameOfType" ColumnName="NameOfType" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="EventEventType" TypeName="Model1.EventEventType" StoreEntitySet="EventSet">
-      <EndProperty Name="EventType">
-        <ScalarProperty Name="Id" ColumnName="EventType_Id" />
-      </EndProperty>
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="EventEventStatus" TypeName="Model1.EventEventStatus" StoreEntitySet="EventSet">
-      <EndProperty Name="EventStatus">
-        <ScalarProperty Name="Id" ColumnName="EventStatus_Id" />
-      </EndProperty>
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="ContributionTypeContribution" TypeName="Model1.ContributionTypeContribution" StoreEntitySet="ContributionSet">
-      <EndProperty Name="ContributionType">
-        <ScalarProperty Name="Id" ColumnName="ContributionType_Id" />
-      </EndProperty>
-      <EndProperty Name="Contribution">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="PersonContribution" TypeName="Model1.PersonContribution" StoreEntitySet="ContributionSet">
-      <EndProperty Name="Person">
-        <ScalarProperty Name="Id" ColumnName="Person_Id" />
-      </EndProperty>
-      <EndProperty Name="Contribution">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="EventContribution" TypeName="Model1.EventContribution" StoreEntitySet="ContributionSet">
-      <EndProperty Name="Event">
-        <ScalarProperty Name="Id" ColumnName="Event_Id" />
-      </EndProperty>
-      <EndProperty Name="Contribution">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

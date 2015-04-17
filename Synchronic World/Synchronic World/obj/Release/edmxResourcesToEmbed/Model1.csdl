@@ -4,29 +4,9 @@
     <EntitySet Name="PersonSet" EntityType="Model1.Person" />
     <EntitySet Name="EventSet" EntityType="Model1.Event" />
     <EntitySet Name="EventTypeSet" EntityType="Model1.EventType" />
-    <AssociationSet Name="EventEventType" Association="Model1.EventEventType">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="EventType" EntitySet="EventTypeSet" />
-    </AssociationSet>
     <EntitySet Name="EventStatusSet" EntityType="Model1.EventStatus" />
-    <AssociationSet Name="EventEventStatus" Association="Model1.EventEventStatus">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="EventStatus" EntitySet="EventStatusSet" />
-    </AssociationSet>
     <EntitySet Name="ContributionSet" EntityType="Model1.Contribution" />
-    <EntitySet Name="ContributionTypeSet1" EntityType="Model1.ContributionType" />
-    <AssociationSet Name="ContributionTypeContribution" Association="Model1.ContributionTypeContribution">
-      <End Role="ContributionType" EntitySet="ContributionTypeSet1" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
-    <AssociationSet Name="PersonContribution" Association="Model1.PersonContribution">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
-    <AssociationSet Name="EventContribution" Association="Model1.EventContribution">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
+    <EntitySet Name="ContributionTypeSet" EntityType="Model1.ContributionType" />
   </EntityContainer>
   <EntityType Name="Person">
     <Key>
@@ -36,7 +16,7 @@
     <Property Name="Name" Type="String" Nullable="false" />
     <Property Name="NickName" Type="String" Nullable="false" />
     <Property Name="Password" Type="String" Nullable="false" />
-    <NavigationProperty Name="Contribution" Relationship="Model1.PersonContribution" FromRole="Person" ToRole="Contribution" />
+    <Property Name="Event_Id" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Event">
     <Key>
@@ -46,36 +26,25 @@
     <Property Name="Name" Type="String" Nullable="false" />
     <Property Name="Address" Type="String" Nullable="false" />
     <Property Name="Description" Type="String" Nullable="false" />
-    <Property Name="Date" Type="DateTime" Nullable="false" />
-    <Property Name="Time" Type="DateTime" Nullable="false" />
-    <NavigationProperty Name="EventType" Relationship="Model1.EventEventType" FromRole="Event" ToRole="EventType" />
-    <NavigationProperty Name="EventStatus" Relationship="Model1.EventEventStatus" FromRole="Event" ToRole="EventStatus" />
-    <NavigationProperty Name="Contribution" Relationship="Model1.EventContribution" FromRole="Event" ToRole="Contribution" />
+    <Property Name="Date" Type="String" Nullable="false" />
+    <Property Name="Time" Type="String" Nullable="false" />
+    <Property Name="EventType_Id" Type="Int32" Nullable="false" />
+    <Property Name="EventStatus_Id" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="EventType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="NameOfType" Type="String" Nullable="false" />
-    <NavigationProperty Name="Event" Relationship="Model1.EventEventType" FromRole="EventType" ToRole="Event" />
+    <Property Name="Name" Type="String" Nullable="false" />
   </EntityType>
-  <Association Name="EventEventType">
-    <End Type="Model1.Event" Role="Event" Multiplicity="*" />
-    <End Type="Model1.EventType" Role="EventType" Multiplicity="1" />
-  </Association>
   <EntityType Name="EventStatus">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Event" Relationship="Model1.EventEventStatus" FromRole="EventStatus" ToRole="Event" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
   </EntityType>
-  <Association Name="EventEventStatus">
-    <End Type="Model1.Event" Role="Event" Multiplicity="1" />
-    <End Type="Model1.EventStatus" Role="EventStatus" Multiplicity="1" />
-  </Association>
   <EntityType Name="Contribution">
     <Key>
       <PropertyRef Name="Id" />
@@ -83,28 +52,15 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" />
     <Property Name="Quantity" Type="Double" Nullable="false" />
-    <NavigationProperty Name="ContributionType" Relationship="Model1.ContributionTypeContribution" FromRole="Contribution" ToRole="ContributionType" />
-    <NavigationProperty Name="Person" Relationship="Model1.PersonContribution" FromRole="Contribution" ToRole="Person" />
-    <NavigationProperty Name="Event" Relationship="Model1.EventContribution" FromRole="Contribution" ToRole="Event" />
+    <Property Name="ContributionType_Id" Type="Int32" Nullable="false" />
+    <Property Name="Person_Id" Type="Int32" Nullable="false" />
+    <Property Name="Event_Id" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="ContributionType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Contribution" Relationship="Model1.ContributionTypeContribution" FromRole="ContributionType" ToRole="Contribution" />
-    <Property Name="NameOfType" Type="String" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
   </EntityType>
-  <Association Name="ContributionTypeContribution">
-    <End Type="Model1.ContributionType" Role="ContributionType" Multiplicity="1" />
-    <End Type="Model1.Contribution" Role="Contribution" Multiplicity="*" />
-  </Association>
-  <Association Name="PersonContribution">
-    <End Type="Model1.Person" Role="Person" Multiplicity="1" />
-    <End Type="Model1.Contribution" Role="Contribution" Multiplicity="*" />
-  </Association>
-  <Association Name="EventContribution">
-    <End Type="Model1.Event" Role="Event" Multiplicity="1" />
-    <End Type="Model1.Contribution" Role="Contribution" Multiplicity="*" />
-  </Association>
 </Schema>

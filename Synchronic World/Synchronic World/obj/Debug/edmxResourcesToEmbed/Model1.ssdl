@@ -6,27 +6,7 @@
     <EntitySet Name="EventTypeSet" EntityType="Model1.Store.EventTypeSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventStatusSet" EntityType="Model1.Store.EventStatusSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ContributionSet" EntityType="Model1.Store.ContributionSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ContributionTypeSet1" EntityType="Model1.Store.ContributionTypeSet1" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="EventEventType" Association="Model1.Store.EventEventType">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="EventType" EntitySet="EventTypeSet" />
-    </AssociationSet>
-    <AssociationSet Name="EventEventStatus" Association="Model1.Store.EventEventStatus">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="EventStatus" EntitySet="EventStatusSet" />
-    </AssociationSet>
-    <AssociationSet Name="ContributionTypeContribution" Association="Model1.Store.ContributionTypeContribution">
-      <End Role="ContributionType" EntitySet="ContributionTypeSet1" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
-    <AssociationSet Name="PersonContribution" Association="Model1.Store.PersonContribution">
-      <End Role="Person" EntitySet="PersonSet" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
-    <AssociationSet Name="EventContribution" Association="Model1.Store.EventContribution">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="Contribution" EntitySet="ContributionSet" />
-    </AssociationSet>
+    <EntitySet Name="ContributionTypeSet" EntityType="Model1.Store.ContributionTypeSet" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
   <EntityType Name="PersonSet">
     <Key>
@@ -36,6 +16,7 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="NickName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Event_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet">
     <Key>
@@ -45,8 +26,8 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
     <Property Name="EventType_Id" Type="int" Nullable="false" />
     <Property Name="EventStatus_Id" Type="int" Nullable="false" />
   </EntityType>
@@ -55,14 +36,14 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameOfType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="EventStatusSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="ContributionSet">
     <Key>
@@ -75,71 +56,11 @@
     <Property Name="Person_Id" Type="int" Nullable="false" />
     <Property Name="Event_Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="ContributionTypeSet1">
+  <EntityType Name="ContributionTypeSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameOfType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <Association Name="EventEventType">
-    <End Role="Event" Type="Model1.Store.EventSet" Multiplicity="*" />
-    <End Role="EventType" Type="Model1.Store.EventTypeSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="EventType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Event">
-        <PropertyRef Name="EventType_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EventEventStatus">
-    <End Role="Event" Type="Model1.Store.EventSet" Multiplicity="*" />
-    <End Role="EventStatus" Type="Model1.Store.EventStatusSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="EventStatus">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Event">
-        <PropertyRef Name="EventStatus_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ContributionTypeContribution">
-    <End Role="ContributionType" Type="Model1.Store.ContributionTypeSet1" Multiplicity="1" />
-    <End Role="Contribution" Type="Model1.Store.ContributionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ContributionType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Contribution">
-        <PropertyRef Name="ContributionType_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="PersonContribution">
-    <End Role="Person" Type="Model1.Store.PersonSet" Multiplicity="1" />
-    <End Role="Contribution" Type="Model1.Store.ContributionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Contribution">
-        <PropertyRef Name="Person_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EventContribution">
-    <End Role="Event" Type="Model1.Store.EventSet" Multiplicity="1" />
-    <End Role="Contribution" Type="Model1.Store.ContributionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Event">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Contribution">
-        <PropertyRef Name="Event_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>
